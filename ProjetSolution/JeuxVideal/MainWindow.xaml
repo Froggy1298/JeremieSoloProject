@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:JeuxVideal" xmlns:fa="http://schemas.fontawesome.com/icons/svg"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800" ResizeMode="NoResize">
+        Title="MainWindow" Height="auto" Width="800" ResizeMode="NoResize">
     <Window.Resources>
         <Style TargetType="GroupBox">
             <Setter Property="BorderBrush" Value="Black"></Setter>
@@ -30,9 +31,32 @@
             <ColumnDefinition Width="300"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
-            <Canvas Margin="20" Background="LightGray" >
-                
-            </Canvas>
+            <ItemsControl ItemsSource="{Binding}" IsHitTestVisible="{Binding CanClickForm}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Background="Transparent"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Canvas.Left" Value="{Binding Coord.PosX}"/>
+                        <Setter Property="Canvas.Top" Value="{Binding Coord.PosY}"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Gray" BorderThickness="1">
+                            <Rectangle Width="{Binding Coord.TileWidth}" Height="{Binding Coord.TileWidth}" Fill="{Binding LifeFormColour}" StrokeThickness="1">
+                                <behaviours:Interaction.Triggers>
+                                    <behaviours:EventTrigger EventName="MouseDown">
+                                        <behaviours:InvokeCommandAction Command="{Binding LifeFormClickedEvent}" PassEventArgsToCommand="True"/>
+                                    </behaviours:EventTrigger>
+                                </behaviours:Interaction.Triggers>
+                            </Rectangle>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
         <Grid Grid.Column="1" Margin="10">
             <Grid.RowDefinitions>
@@ -47,17 +71,17 @@
                     <Button>Forme 3</Button>
                     <Button>Aléatoire</Button>
                     <Label>Charger une forme :</Label>
-                    <Button>
+                    <Button Command="{Binding BoutonCharger}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:ImageAwesome Height="20" Icon="Solid_FloppyDisk"/>
-                            <Label>test</Label>
+                            <fa:ImageAwesome Height="20" Icon="Solid_FileArrowUp"/>
+                            <Label>Charger</Label>
                         </StackPanel> 
                     </Button>
                     <Label>Enregistrer une nouvelle forme :</Label>
-                    <Button>
+                    <Button Command="{Binding BoutonEnregistrer}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:ImageAwesome Height="20" Icon="Solid_FileArrowUp"/>
-                            <Label>test</Label>
+                            <fa:ImageAwesome Height="15" Icon="Solid_FloppyDisk"/>
+                            <Label>Enregistrer</Label>
                         </StackPanel>
                     </Button>
                     <Label>Taille de la grille du jeux :</Label>
@@ -72,6 +96,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -79,7 +104,24 @@
                         <TextBox Width="50" VerticalAlignment="Center"></TextBox>
                     </StackPanel>
                 </Grid>
-                <Button Grid.Row="1" Background="Green" Margin="50,10">Démarrer</Button>
+                <Button Command="{Binding BoutonPlay}" Visibility="{Binding VisibilityPlayButton}" Grid.Row="1" Background="Green" Margin="50,5" Height="auto">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Height="15" Icon="Solid_Play"/>
+                        <Label>Enregistrer</Label>
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding BoutonPause}" Visibility="{Binding VisibilityPauseButton}" Grid.Row="1" Background="Orange" Margin="50,5" Height="auto">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Height="15" Icon="Solid_Pause"/>
+                        <Label>Pause</Label>
+                    </StackPanel>
+                </Button>
+                <Button Grid.Row="2" Background="Red" Margin="50,5" Height="auto">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Height="15" Icon="Solid_ArrowRotateRight"/>
+                        <Label>Reset</Label>
+                    </StackPanel>
+                </Button>
             </Grid>
         </Grid>
     </Grid>
