@@ -6,7 +6,7 @@
         xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:JeuxVideal" xmlns:fa="http://schemas.fontawesome.com/icons/svg"
         mc:Ignorable="d"
-        Title="MainWindow" Height="auto" Width="800" ResizeMode="NoResize">
+        Title="MainWindow" Height="auto" Width="800" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
     <Window.Resources>
         <Style TargetType="GroupBox">
             <Setter Property="BorderBrush" Value="Black"></Setter>
