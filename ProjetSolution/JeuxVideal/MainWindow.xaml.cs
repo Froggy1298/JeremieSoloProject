@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JeuxVideal.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace JeuxVideal
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new LifeGameViewModel(5);
         }
     }
 }
