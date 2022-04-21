@@ -24,7 +24,7 @@ namespace JeuxVideal.Model
         public bool IsAliveNext { get; private set; }
             
         
-        List<Cell> CellVoisine { get; set; }
+        public List<Cell> CellsVoisine { get; set; }
 
         public int NbCellVoisine { get; set; }
 
@@ -53,7 +53,7 @@ namespace JeuxVideal.Model
         {
             NbCellVoisine = 0;
 
-            NbCellVoisine =  (from voisin in this.CellVoisine
+            NbCellVoisine =  (from voisin in this.CellsVoisine
                     where voisin.IsAlive
                     select voisin).Count();
 

@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Server.VueModele;
+using System.Diagnostics;
 
 namespace JeuxVideal.ViewModel
 {
@@ -21,19 +22,37 @@ namespace JeuxVideal.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
-        ObservableCollection<Cell> Cells = new ObservableCollection<Cell>();
-        
-        public LifeGameViewModel()
+        List<Cell> Cells;
+        Stopwatch MyStopWatch;
+        TimeSpan MyTimeSpan;
+
+
+        public LifeGameViewModel(int size)
         {
             BoutonPlay = new CommandeRelais(PlayGame);
             BoutonPause= new CommandeRelais(PauseGame);
-
-
+            Cells = new List<Cell>();
+            Cells = new Tableau().ConstructionDuTableau(size);
+            MyStopWatch = new Stopwatch();
+            MyTimeSpan = new TimeSpan(100);
 
         }
 
 
+        private bool _estEnPause;
 
+        public bool EstEnPause
+        {
+            get { return _estEnPause; }
+            set { _estEnPause = value; NotifyPropertyChanged(); }
+        }
+        public void PlayingGame()
+        {
+            while(!EstEnPause)
+            {
+                //TODO do some shit
+            }
+        }
 
         #region Bouton Charger
         //La commande du bouton Charger
@@ -60,6 +79,9 @@ namespace JeuxVideal.ViewModel
         {
             VisibilityPlayButton = "Hidden";
             VisibilityPauseButton = "Visible";
+            EstEnPause = false;
+            //TODO mettre une prop qui gere le switch de donné VISIBLE HIDDEN
+
         }
         //Pour gerer la visibilité du bouton play
         private String _visibilityPlayButton = "Visible";
@@ -77,7 +99,7 @@ namespace JeuxVideal.ViewModel
         {
             VisibilityPlayButton = "Visible";
             VisibilityPauseButton = "Hidden";
-
+            EstEnPause = true;
         }
         //Pour Gerer la visibilité du bouton pause
         private String _visibilityPauseButton = "Hidden";
@@ -93,7 +115,11 @@ namespace JeuxVideal.ViewModel
         public ICommand BoutonReset { get; set; }
         private void ResetGame(object param)
         {
-
+            EstEnPause = false;
+            foreach(Cell c in Cells)
+            {
+                c.IsAlive = false;
+            }
         }
         #endregion
 

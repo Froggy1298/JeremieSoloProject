@@ -24,7 +24,7 @@ namespace JeuxVideal
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new LifeGameViewModel();
+            this.DataContext = new LifeGameViewModel(5);
         }
     }
 }

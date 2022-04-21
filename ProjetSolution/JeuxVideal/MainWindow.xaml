@@ -6,7 +6,7 @@
         xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:JeuxVideal" xmlns:fa="http://schemas.fontawesome.com/icons/svg"
         mc:Ignorable="d"
-        Title="MainWindow" Height="auto" Width="800" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
+        Title="MainWindow" Height="auto" Width="800" ResizeMode="NoResize" SizeToContent="Height">
     <Window.Resources>
         <Style TargetType="GroupBox">
             <Setter Property="BorderBrush" Value="Black"></Setter>
@@ -31,7 +31,26 @@
             <ColumnDefinition Width="300"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
-            <ItemsControl ItemsSource="{Binding}" IsHitTestVisible="{Binding CanClickForm}">
+            <ItemsControl Name="icCellGrid" Margin="5" BorderThickness="2" ItemsSource="{Binding Path=Cells, Mode=TwoWay}">
+                <!-- Holding panel -->
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Background="#FF404040"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <!-- Item template -->
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ToggleButton
+                                  Margin="0.5,0.5,0.5,0.5"
+                                  IsChecked="{Binding IsAlive, 
+                                  UpdateSourceTrigger=PropertyChanged, 
+                                  Mode=TwoWay}">
+                        </ToggleButton>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <!--<ItemsControl ItemsSource="{Binding}" IsHitTestVisible="{Binding CanClickForm}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Canvas Background="Transparent"/>
@@ -56,7 +75,7 @@
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            </ItemsControl>-->
         </Grid>
         <Grid Grid.Column="1" Margin="10">
             <Grid.RowDefinitions>
