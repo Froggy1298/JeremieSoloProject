@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Server.VueModele;
 using System.Diagnostics;
+using System.Windows.Controls;
 
 namespace JeuxVideal.ViewModel
 {
@@ -22,7 +23,7 @@ namespace JeuxVideal.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
-        List<Cell> Cells;
+        public ObservableCollection<Cell> Cells { get; set; }
         Stopwatch MyStopWatch;
         TimeSpan MyTimeSpan;
 
@@ -31,15 +32,17 @@ namespace JeuxVideal.ViewModel
         {
             BoutonPlay = new CommandeRelais(PlayGame);
             BoutonPause= new CommandeRelais(PauseGame);
-            Cells = new List<Cell>();
+            BoutonReset = new CommandeRelais(ResetGame);
+            Cells = new ObservableCollection<Cell>();
             Cells = new Tableau().ConstructionDuTableau(size);
             MyStopWatch = new Stopwatch();
             MyTimeSpan = new TimeSpan(100);
-
+           
         }
 
 
-        private bool _estEnPause;
+        private bool _estEnPause = true;
+
 
         public bool EstEnPause
         {
@@ -50,7 +53,16 @@ namespace JeuxVideal.ViewModel
         {
             while(!EstEnPause)
             {
-                //TODO do some shit
+                MyStopWatch.Restart();
+                //await.Task.Run 
+                foreach(Cell c in Cells)
+                {
+                    c.CountLivingNeighbours();
+
+                    c.IsAliveNext = ((c.NbCellVoisine == 3) ||((c.NbCellVoisine == 2) && c.IsAlive));
+                    c.IsAlive = c.IsAliveNext;
+                }
+
             }
         }
 
@@ -81,6 +93,7 @@ namespace JeuxVideal.ViewModel
             VisibilityPauseButton = "Visible";
             EstEnPause = false;
             //TODO mettre une prop qui gere le switch de donné VISIBLE HIDDEN
+            PlayingGame();
 
         }
         //Pour gerer la visibilité du bouton play
@@ -115,7 +128,7 @@ namespace JeuxVideal.ViewModel
         public ICommand BoutonReset { get; set; }
         private void ResetGame(object param)
         {
-            EstEnPause = false;
+            EstEnPause = true;
             foreach(Cell c in Cells)
             {
                 c.IsAlive = false;

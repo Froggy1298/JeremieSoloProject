@@ -24,7 +24,7 @@ namespace JeuxVideal.Model
         {
             foreach (var cell in this.cells)
             {
-                this.currentState[cell.YIndex, cell.XIndex] = cell.IsAlive;
+                this.currentState[(int)cell.YIndex, (int)cell.XIndex] = cell.IsAlive;
             }
         }
 

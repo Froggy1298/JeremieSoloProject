@@ -31,51 +31,29 @@
             <ColumnDefinition Width="300"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
-            <ItemsControl Name="icCellGrid" Margin="5" BorderThickness="2" ItemsSource="{Binding Path=Cells, Mode=TwoWay}">
-                <!-- Holding panel -->
+            <ItemsControl Margin="20" ItemsSource="{Binding Cells, Mode=TwoWay}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Background="#FF404040"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <!-- Item template -->
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <ToggleButton
-                                  Margin="0.5,0.5,0.5,0.5"
-                                  IsChecked="{Binding IsAlive, 
-                                  UpdateSourceTrigger=PropertyChanged, 
-                                  Mode=TwoWay}">
-                        </ToggleButton>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <!--<ItemsControl ItemsSource="{Binding}" IsHitTestVisible="{Binding CanClickForm}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas Background="Transparent"/>
+                        <!--<UniformGrid Background="AliceBlue" Columns="{Binding XIndex}" Rows="{Binding YIndex}"></UniformGrid>-->
+                        <Canvas></Canvas>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemContainerStyle>
                     <Style TargetType="ContentPresenter">
-                        <Setter Property="Canvas.Left" Value="{Binding Coord.PosX}"/>
-                        <Setter Property="Canvas.Top" Value="{Binding Coord.PosY}"/>
+                        <Setter Property="Canvas.Top" Value="{Binding XAffichage}"/>
+                        <Setter Property="Canvas.Left" Value="{Binding YAffchage}"/>
                     </Style>
                 </ItemsControl.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="Gray" BorderThickness="1">
-                            <Rectangle Width="{Binding Coord.TileWidth}" Height="{Binding Coord.TileWidth}" Fill="{Binding LifeFormColour}" StrokeThickness="1">
-                                <behaviours:Interaction.Triggers>
-                                    <behaviours:EventTrigger EventName="MouseDown">
-                                        <behaviours:InvokeCommandAction Command="{Binding LifeFormClickedEvent}" PassEventArgsToCommand="True"/>
-                                    </behaviours:EventTrigger>
-                                </behaviours:Interaction.Triggers>
-                            </Rectangle>
+                        <Border BorderBrush="Red" BorderThickness="2" >
+                            <ToggleButton Width="15" Height="15" IsChecked="{Binding IsAlive, Mode=TwoWay}" >
+
+                            </ToggleButton>
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-            </ItemsControl>-->
+            </ItemsControl>
         </Grid>
         <Grid Grid.Column="1" Margin="10">
             <Grid.RowDefinitions>
@@ -126,7 +104,7 @@
                 <Button Command="{Binding BoutonPlay}" Visibility="{Binding VisibilityPlayButton}" Grid.Row="1" Background="Green" Margin="50,5" Height="auto">
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Height="15" Icon="Solid_Play"/>
-                        <Label>Enregistrer</Label>
+                        <Label>Play</Label>
                     </StackPanel>
                 </Button>
                 <Button Command="{Binding BoutonPause}" Visibility="{Binding VisibilityPauseButton}" Grid.Row="1" Background="Orange" Margin="50,5" Height="auto">
@@ -135,7 +113,7 @@
                         <Label>Pause</Label>
                     </StackPanel>
                 </Button>
-                <Button Grid.Row="2" Background="Red" Margin="50,5" Height="auto">
+                <Button Command="{Binding BoutonReset}" Grid.Row="2" Background="Red" Margin="50,5" Height="auto">
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Height="15" Icon="Solid_ArrowRotateRight"/>
                         <Label>Reset</Label>

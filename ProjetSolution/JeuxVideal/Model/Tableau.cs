@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 
@@ -24,17 +25,17 @@ namespace JeuxVideal.Model
         Cell[,] TableauCells { get; set; }
 
 
-        public List<Cell> ConstructionDuTableau(int size)
+        public ObservableCollection<Cell> ConstructionDuTableau(int size)
         {
             Dimension = size;
             Cell cellTemp;
             TableauCells = new Cell[Dimension, Dimension];
-            List<Cell> ListCells = new List<Cell>();
+            ObservableCollection<Cell> ListCells = new ObservableCollection<Cell>();
             for(int i = 0 ; i < Dimension; i++)
             {
                 for(int j = 0; j < Dimension; j++)
                 {
-                    /*if ((i + j) % 2 == 0)
+                    if ((i + j) % 2 == 0)
                     {
                         cellTemp = new Cell(i, j, true);
                     }
@@ -42,15 +43,15 @@ namespace JeuxVideal.Model
                     {
                         cellTemp = new Cell(i, j, false);
 
-                    }*/
-                    if ((rand.Next(10) % 2) == 0)
+                    }
+                    /*if ((rand.Next(10) % 2) == 0)
                     { 
                         cellTemp = new Cell(i, j, true);
                     }
                     else
                     {
                         cellTemp = new Cell(i, j, false);
-                    }
+                    }*/
                     TableauCells[i, j] = cellTemp;
                     ListCells.Add(cellTemp);
                 }
@@ -65,7 +66,8 @@ namespace JeuxVideal.Model
                     {
                         if (i == 0 && j == 0)
                             continue;
-                        ThisCell.CellsVoisine.Add(TableauCells[(((ThisCell.YIndex+ Dimension) + j) % Dimension), ((ThisCell.XIndex + Dimension) + i) % Dimension]);
+                        //ThisCell.CellsVoisine.Add(TableauCells[(((ThisCell.YIndex) + j) % Dimension), ((ThisCell.XIndex) + i) % Dimension]);
+                        ThisCell.CellsVoisine.Add(TableauCells[(((ThisCell.YIndex + Dimension) + j) % Dimension), ((ThisCell.XIndex + Dimension) + i) % Dimension]);
                     }
                 }
 
