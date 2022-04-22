@@ -60,9 +60,11 @@ namespace JeuxVideal.ViewModel
                     c.CountLivingNeighbours();
 
                     c.IsAliveNext = ((c.NbCellVoisine == 3) ||((c.NbCellVoisine == 2) && c.IsAlive));
+                }
+                foreach(Cell c in Cells)
+                {
                     c.IsAlive = c.IsAliveNext;
                 }
-
             }
         }
 
