@@ -67,7 +67,7 @@ namespace JeuxVideal.Model
                         if (i == 0 && j == 0)
                             continue;
                         //ThisCell.CellsVoisine.Add(TableauCells[(((ThisCell.YIndex) + j) % Dimension), ((ThisCell.XIndex) + i) % Dimension]);
-                        ThisCell.CellsVoisine.Add(TableauCells[(((ThisCell.YIndex + Dimension) + j) % Dimension), ((ThisCell.XIndex + Dimension) + i) % Dimension]);
+                        ThisCell.CellsVoisine.Add(TableauCells[(((ThisCell.XIndex + Dimension) + j) % Dimension), ((ThisCell.YIndex + Dimension) + i) % Dimension]);
                     }
                 }
 

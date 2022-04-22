@@ -10,6 +10,7 @@ using System.Windows.Input;
 using Server.VueModele;
 using System.Diagnostics;
 using System.Windows.Controls;
+using System.Threading.Tasks;
 
 namespace JeuxVideal.ViewModel
 {
@@ -49,7 +50,7 @@ namespace JeuxVideal.ViewModel
             get { return _estEnPause; }
             set { _estEnPause = value; NotifyPropertyChanged(); }
         }
-        public void PlayingGame()
+        public async void PlayingGame()
         {
             while(!EstEnPause)
             {
@@ -59,12 +60,13 @@ namespace JeuxVideal.ViewModel
                 {
                     c.CountLivingNeighbours();
 
-                    c.IsAliveNext = ((c.NbCellVoisine == 3) ||((c.NbCellVoisine == 2) && c.IsAlive));
+                    c.IsAliveNext = ((c.NbCellVoisine == 3) || ((c.NbCellVoisine == 2) && c.IsAlive));
                 }
                 foreach(Cell c in Cells)
                 {
                     c.IsAlive = c.IsAliveNext;
                 }
+                await Task.Delay(50);
             }
         }
 
