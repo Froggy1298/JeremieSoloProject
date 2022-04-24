@@ -35,7 +35,7 @@ namespace JeuxVideal.Model
             {
                 for(int j = 0; j < Dimension; j++)
                 {
-                    if ((i + j) % 2 == 0)
+                    /*if ((i + j) % 2 == 0)
                     {
                         cellTemp = new Cell(i, j, true);
                     }
@@ -43,15 +43,15 @@ namespace JeuxVideal.Model
                     {
                         cellTemp = new Cell(i, j, false);
 
-                    }
-                    /*if ((rand.Next(10) % 2) == 0)
+                    }*/
+                    if ((rand.Next(10) % 2) == 0)
                     { 
                         cellTemp = new Cell(i, j, true);
                     }
                     else
                     {
                         cellTemp = new Cell(i, j, false);
-                    }*/
+                    }
                     TableauCells[i, j] = cellTemp;
                     ListCells.Add(cellTemp);
                 }

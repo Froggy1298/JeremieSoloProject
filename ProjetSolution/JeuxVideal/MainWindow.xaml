@@ -47,7 +47,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border BorderBrush="Black" BorderThickness="2" >
-                            <ToggleButton Background="Transparent" Width="15" Height="15" IsChecked="{Binding IsAlive, Mode=TwoWay}" >
+                            <ToggleButton Background="Red" Width="15" Height="15" IsChecked="{Binding IsAlive, Mode=TwoWay}" >
                                 <ToggleButton.Style>
                                     <Style TargetType="{x:Type ToggleButton}">
                                         <Style.Triggers>
