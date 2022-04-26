@@ -25,8 +25,13 @@ namespace JeuxVideal.ViewModel
         #endregion
 
         public ObservableCollection<Cell> Cells { get; set; }
-        Stopwatch MyStopWatch;
-        TimeSpan MyTimeSpan;
+        private int canvasWidth;
+        private Random rand = new Random();
+        private bool _estEnPause = true;
+
+       
+       
+
 
 
         public LifeGameViewModel(int size)
@@ -34,27 +39,22 @@ namespace JeuxVideal.ViewModel
             BoutonPlay = new CommandeRelais(PlayGame);
             BoutonPause= new CommandeRelais(PauseGame);
             BoutonReset = new CommandeRelais(ResetGame);
+            BoutonAleatoire = new CommandeRelais(AleatoireTableau);
             Cells = new ObservableCollection<Cell>();
             Cells = new Tableau().ConstructionDuTableau(size);
-            MyStopWatch = new Stopwatch();
-            MyTimeSpan = new TimeSpan(100);
-           
+            CanvasWidth = size * 10;
+            CanvasHeight = size * 10;
         }
 
 
-        private bool _estEnPause = true;
+       
 
 
-        public bool EstEnPause
-        {
-            get { return _estEnPause; }
-            set { _estEnPause = value; NotifyPropertyChanged(); }
-        }
+     
         public async void PlayingGame()
         {
-            while(!EstEnPause)
+            while(!_estEnPause)
             {
-                MyStopWatch.Restart();
                 //await.Task.Run 
                 foreach(Cell c in Cells)
                 {
@@ -67,8 +67,42 @@ namespace JeuxVideal.ViewModel
                     c.IsAlive = c.IsAliveNext;
                 }
                 await Task.Delay(50);
+                
             }
         }
+
+
+        #region Bouton Aléatoire
+        //La commande du bouton Aléatoire
+        public ICommand BoutonAleatoire { get; set; }
+        private void AleatoireTableau (object param)
+        {
+            foreach (Cell cel in Cells)
+            {
+                if ((rand.Next(10) % 2) == 0)
+                    cel.IsAlive = true;
+                else
+                    cel.IsAlive = false;
+            }
+        }
+        #endregion
+
+
+        #region Binding grandeur canva
+        public int CanvasWidth
+        {
+            get { return canvasWidth; }
+            set { canvasWidth = value; }
+        }
+
+        private int canvasHeight;
+
+        public int CanvasHeight
+        {
+            get { return canvasHeight; }
+            set { canvasHeight = value; }
+        }
+        #endregion
 
         #region Bouton Charger
         //La commande du bouton Charger
@@ -95,7 +129,7 @@ namespace JeuxVideal.ViewModel
         {
             VisibilityPlayButton = "Hidden";
             VisibilityPauseButton = "Visible";
-            EstEnPause = false;
+            _estEnPause = false;
             //TODO mettre une prop qui gere le switch de donné VISIBLE HIDDEN
             PlayingGame();
 
@@ -116,7 +150,7 @@ namespace JeuxVideal.ViewModel
         {
             VisibilityPlayButton = "Visible";
             VisibilityPauseButton = "Hidden";
-            EstEnPause = true;
+            _estEnPause = true;
         }
         //Pour Gerer la visibilité du bouton pause
         private String _visibilityPauseButton = "Hidden";
@@ -132,7 +166,9 @@ namespace JeuxVideal.ViewModel
         public ICommand BoutonReset { get; set; }
         private void ResetGame(object param)
         {
-            EstEnPause = true;
+            VisibilityPlayButton = "Visible";
+            VisibilityPauseButton = "Hidden";
+            _estEnPause = true;
             foreach(Cell c in Cells)
             {
                 c.IsAlive = false;

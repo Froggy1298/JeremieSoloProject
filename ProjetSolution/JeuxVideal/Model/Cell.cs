@@ -16,11 +16,11 @@ namespace JeuxVideal.Model
         public int YIndex { get; private set; }
         public double XAffichage 
         {
-            get { return XIndex * 15; }
+            get { return XIndex * 10; }
         }
         public double YAffchage
         {
-            get { return YIndex * 15; }
+            get { return YIndex * 10; }
         }
 
         private bool _isAlive;

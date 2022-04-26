@@ -9,7 +9,6 @@ namespace JeuxVideal.Model
     class Tableau
     {
         private int _dimension;
-        private Random rand = new Random();
 
         public int Dimension
         {
@@ -44,14 +43,6 @@ namespace JeuxVideal.Model
                         cellTemp = new Cell(i, j, false);
 
                     }
-                    /*if ((rand.Next(10) % 2) == 0)
-                    { 
-                        cellTemp = new Cell(i, j, true);
-                    }
-                    else
-                    {
-                        cellTemp = new Cell(i, j, false);
-                    }*/
                     TableauCells[i, j] = cellTemp;
                     ListCells.Add(cellTemp);
                 }
