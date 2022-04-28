@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Microsoft.Win32;
+using System.Collections.ObjectModel;
 
 namespace JeuxVideal.Model
 {
     internal class Serialize
     {
         private readonly BinaryFormatter formatter = new BinaryFormatter();
-        private readonly List<Cell> cells;
+        private readonly ObservableCollection<Cell> cells;
         private bool[,] currentState;
-        private string _filePath;
+        private string _StringPath;
 
 
-        public Serialize(List<Cell> gameCells, int taille)
+        public Serialize(ObservableCollection<Cell> gameCells, int taille)
         {
             cells = gameCells;
             currentState = new bool[taille, taille]; 
@@ -28,40 +30,49 @@ namespace JeuxVideal.Model
             }
         }
 
-        public void SaveFile()
+        public void SauvegardeFichier()
         {
-            if (string.IsNullOrEmpty(_filePath))
-                this.GetFilePath();
+            this.GetFilePath();
 
             this.GetCurrentGameState();
 
-            using(var stream = File.OpenWrite(this._filePath))
+            using(FileStream stream = File.OpenWrite(_StringPath))
             {
                 this.formatter.Serialize(stream, this.currentState);
             }
         }
-        public void GetFilePath()
+        private void GetFilePath()
         {
-            var windowDialog = new Microsoft.Win32.SaveFileDialog();
-            windowDialog.Filter = "Game of Life files (*.GOL)|*.GOL|All files (*.*)|*.*";
+            var windowDialog = new SaveFileDialog();
+            windowDialog.Filter = "Game of Life files (*.fuc)|*.fuc|All files (*.*)|*.*";
             windowDialog.FilterIndex = 1;
             windowDialog.RestoreDirectory = true;
             if ((bool)windowDialog.ShowDialog())
-                _filePath = windowDialog.FileName;
+                _StringPath = windowDialog.FileName;
             else
                 return;
 
         }
-        public void LoadFile()
+        public void ChargerFicher()
         {
-            var windowDialog = new Microsoft.Win32.OpenFileDialog();
+            this.GetFilePath();
+            using (FileStream stream = File.OpenRead(_StringPath))
+            {
+                currentState = (bool[,])formatter.Deserialize(stream);
+            }
 
-            windowDialog.Filter = "Game of Life files (*.GOL)|*.GOL|All files (*.*)|*.*";
-            windowDialog.FilterIndex = 1;
-            //windowDialog.RestoreDirectory = true;
-            
-
+            ChargerTableau();
         }
+
+        private void ChargerTableau()
+        {
+            foreach(Cell c in cells)
+            {
+                c.IsAlive = currentState[c.YIndex, c.XIndex];
+            }
+        }
+
+
 
 
     }

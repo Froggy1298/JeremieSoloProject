@@ -25,6 +25,7 @@ namespace JeuxVideal.ViewModel
         #endregion
 
         public ObservableCollection<Cell> Cells { get; set; }
+        public Serialize Enregistreur { get; set; }
         private int canvasWidth;
         private Random rand = new Random();
         private bool _estEnPause = true;
@@ -40,8 +41,13 @@ namespace JeuxVideal.ViewModel
             BoutonPause= new CommandeRelais(PauseGame);
             BoutonReset = new CommandeRelais(ResetGame);
             BoutonAleatoire = new CommandeRelais(AleatoireTableau);
+
+
             Cells = new ObservableCollection<Cell>();
             Cells = new Tableau().ConstructionDuTableau(size);
+
+            Enregistreur = new Serialize(Cells, size);
+
             CanvasWidth = size * 10;
             CanvasHeight = size * 10;
         }
@@ -77,6 +83,7 @@ namespace JeuxVideal.ViewModel
         public ICommand BoutonAleatoire { get; set; }
         private void AleatoireTableau (object param)
         {
+            PauseGame(param);
             foreach (Cell cel in Cells)
             {
                 if ((rand.Next(10) % 2) == 0)
@@ -86,7 +93,6 @@ namespace JeuxVideal.ViewModel
             }
         }
         #endregion
-
 
         #region Binding grandeur canva
         public int CanvasWidth
@@ -130,7 +136,6 @@ namespace JeuxVideal.ViewModel
             VisibilityPlayButton = "Hidden";
             VisibilityPauseButton = "Visible";
             _estEnPause = false;
-            //TODO mettre une prop qui gere le switch de donné VISIBLE HIDDEN
             PlayingGame();
 
         }
@@ -166,9 +171,7 @@ namespace JeuxVideal.ViewModel
         public ICommand BoutonReset { get; set; }
         private void ResetGame(object param)
         {
-            VisibilityPlayButton = "Visible";
-            VisibilityPauseButton = "Hidden";
-            _estEnPause = true;
+            PauseGame(param);
             foreach(Cell c in Cells)
             {
                 c.IsAlive = false;
@@ -176,7 +179,7 @@ namespace JeuxVideal.ViewModel
         }
         #endregion
 
-
+        
 
 
     }
