@@ -33,7 +33,7 @@
             <ColumnDefinition Width="60*"></ColumnDefinition>
             <ColumnDefinition Width="40*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ItemsControl Margin="20" ItemsSource="{Binding Cells, Mode=TwoWay}" Width="{Binding CanvasWidth}" Height="{Binding CanvasWidth}">
+        <ItemsControl Margin="20" ItemsSource="{Binding leTableauCell, Mode=TwoWay}" Width="{Binding CanvasWidth}" Height="{Binding CanvasWidth}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <!--<UniformGrid Background="AliceBlue" Columns="{Binding XIndex}" Rows="{Binding YIndex}"></UniformGrid>-->
@@ -64,8 +64,8 @@
             <GroupBox Grid.Row="0" Padding="5">
                 <StackPanel Margin="5">
                     <Label>Générer une forme :</Label>
-                    <Button>Forme 1</Button>
-                    <Button>Forme 2</Button>
+                    <Button Command="{Binding BoutonForme1}" >Forme 1</Button>
+                    <Button Command="{Binding BoutonForme2}">Forme 2</Button>
                     <Button>Forme 3</Button>
                     <Button Command="{Binding BoutonAleatoire}">Aléatoire</Button>
                     <Label>Charger une forme :</Label>

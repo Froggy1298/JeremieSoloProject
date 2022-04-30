@@ -34,12 +34,16 @@ namespace JeuxVideal.Model
         {
             this.GetFilePath();
 
-            this.GetCurrentGameState();
-
-            using(FileStream stream = File.OpenWrite(_StringPath))
+            if (_StringPath != null)
             {
-                this.formatter.Serialize(stream, this.currentState);
+                this.GetCurrentGameState();
+                using(FileStream stream = File.OpenWrite(_StringPath))
+                {
+                    this.formatter.Serialize(stream, this.currentState);
+                }
             }
+
+
         }
         private void GetFilePath()
         {
@@ -56,12 +60,15 @@ namespace JeuxVideal.Model
         public void ChargerFicher()
         {
             this.GetFilePath();
-            using (FileStream stream = File.OpenRead(_StringPath))
+            if(_StringPath != null)
             {
-                currentState = (bool[,])formatter.Deserialize(stream);
+                using (FileStream stream = File.OpenRead(_StringPath))
+                {
+                    currentState = (bool[,])formatter.Deserialize(stream);
+                }
+                ChargerTableau();
             }
 
-            ChargerTableau();
         }
 
         private void ChargerTableau()

@@ -24,12 +24,12 @@ namespace JeuxVideal.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
-        public ObservableCollection<Cell> Cells { get; set; }
+        public ObservableCollection<Cell> leTableauCell { get; set; }
         public Serialize Enregistreur { get; set; }
         private int canvasWidth;
         private Random rand = new Random();
         private bool _estEnPause = true;
-
+        private int _size;
        
        
 
@@ -41,15 +41,20 @@ namespace JeuxVideal.ViewModel
             BoutonPause= new CommandeRelais(PauseGame);
             BoutonReset = new CommandeRelais(ResetGame);
             BoutonAleatoire = new CommandeRelais(AleatoireTableau);
+            BoutonCharger = new CommandeRelais(ChargerGame);    
+            BoutonEnregistrer = new CommandeRelais(EnregistrerGame);
+            BoutonForme1 = new CommandeRelais(Forme1);
+            BoutonForme2 = new CommandeRelais(Forme2);
 
 
-            Cells = new ObservableCollection<Cell>();
-            Cells = new Tableau().ConstructionDuTableau(size);
+           leTableauCell = new ObservableCollection<Cell>();
+            leTableauCell = new Tableau().ConstructionDuTableau(size);
 
-            Enregistreur = new Serialize(Cells, size);
+            Enregistreur = new Serialize(leTableauCell, size);
 
             CanvasWidth = size * 10;
             CanvasHeight = size * 10;
+            _size = size;
         }
 
 
@@ -62,13 +67,13 @@ namespace JeuxVideal.ViewModel
             while(!_estEnPause)
             {
                 //await.Task.Run 
-                foreach(Cell c in Cells)
+                foreach(Cell c in leTableauCell)
                 {
                     c.CountLivingNeighbours();
 
                     c.IsAliveNext = ((c.NbCellVoisine == 3) || ((c.NbCellVoisine == 2) && c.IsAlive));
                 }
-                foreach(Cell c in Cells)
+                foreach(Cell c in leTableauCell)
                 {
                     c.IsAlive = c.IsAliveNext;
                 }
@@ -84,7 +89,7 @@ namespace JeuxVideal.ViewModel
         private void AleatoireTableau (object param)
         {
             PauseGame(param);
-            foreach (Cell cel in Cells)
+            foreach (Cell cel in leTableauCell)
             {
                 if ((rand.Next(10) % 2) == 0)
                     cel.IsAlive = true;
@@ -115,7 +120,7 @@ namespace JeuxVideal.ViewModel
         public ICommand BoutonCharger { get; set; }
         private void ChargerGame(object param)
         {
-            
+            Enregistreur.ChargerFicher();
         }
         #endregion
 
@@ -124,7 +129,7 @@ namespace JeuxVideal.ViewModel
         public ICommand BoutonEnregistrer { get; set; }
         private void EnregistrerGame(object param)
         {
-
+            Enregistreur.SauvegardeFichier();
         }
         #endregion
 
@@ -172,14 +177,63 @@ namespace JeuxVideal.ViewModel
         private void ResetGame(object param)
         {
             PauseGame(param);
-            foreach(Cell c in Cells)
+            foreach(Cell c in leTableauCell)
             {
                 c.IsAlive = false;
             }
         }
         #endregion
 
-        
+        #region Bouton Forme1
+
+        public ICommand BoutonForme1 { get; set; }
+        private void Forme1(object param)
+        {
+            PauseGame(param);
+
+            for(int i = 2; i < _size; i = i + 4)
+            {
+                foreach(Cell c in leTableauCell)
+                {
+                    if(c.XIndex == i)
+                    {
+                        c.IsAlive = true;
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Bouton Forme2
+
+        public ICommand BoutonForme2 { get; set; }
+        private void Forme2(object param)
+        {
+            PauseGame(param);
+
+            for (int i = 3; i < _size; i = i + 4)
+            {
+                foreach (Cell c in leTableauCell)
+                {
+                    if (c.XIndex == i)
+                    {
+                        if (c.YIndex % 4 == 0)
+                        {
+                            c.IsAlive = false;
+                        }
+                        else
+                        {
+                            c.IsAlive = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+
 
 
     }
