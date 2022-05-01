@@ -48,7 +48,7 @@ namespace JeuxVideal.Model
         private void GetFilePath()
         {
             var windowDialog = new SaveFileDialog();
-            windowDialog.Filter = "Game of Life files (*.fuc)|*.fuc|All files (*.*)|*.*";
+            windowDialog.Filter = "Game of Life files (*.GAY)|*.GAY|All files (*.*)|*.*";
             windowDialog.FilterIndex = 1;
             windowDialog.RestoreDirectory = true;
             if ((bool)windowDialog.ShowDialog())

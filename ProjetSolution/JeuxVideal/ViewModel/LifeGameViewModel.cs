@@ -45,6 +45,7 @@ namespace JeuxVideal.ViewModel
             BoutonEnregistrer = new CommandeRelais(EnregistrerGame);
             BoutonForme1 = new CommandeRelais(Forme1);
             BoutonForme2 = new CommandeRelais(Forme2);
+            BoutonForme3 = new CommandeRelais(Forme3);
 
 
            leTableauCell = new ObservableCollection<Cell>();
@@ -64,9 +65,11 @@ namespace JeuxVideal.ViewModel
      
         public async void PlayingGame()
         {
-            while(!_estEnPause)
+            while(!_estEnPause && (NombreIte != 0 || IteInfinie))
             {
-                //await.Task.Run 
+                //await.Task.1Run 
+                if(NombreIte !=0 && !IteInfinie)
+                    NombreIte--;
                 foreach(Cell c in leTableauCell)
                 {
                     c.CountLivingNeighbours();
@@ -189,8 +192,7 @@ namespace JeuxVideal.ViewModel
         public ICommand BoutonForme1 { get; set; }
         private void Forme1(object param)
         {
-            PauseGame(param);
-
+            ResetGame(param);
             for(int i = 2; i < _size; i = i + 4)
             {
                 foreach(Cell c in leTableauCell)
@@ -210,7 +212,7 @@ namespace JeuxVideal.ViewModel
         public ICommand BoutonForme2 { get; set; }
         private void Forme2(object param)
         {
-            PauseGame(param);
+            ResetGame(param);
 
             for (int i = 3; i < _size; i = i + 4)
             {
@@ -233,8 +235,68 @@ namespace JeuxVideal.ViewModel
 
         #endregion
 
+        #region Bouton Forme3
+
+        public ICommand BoutonForme3 { get; set; }
+        private void Forme3(object param)
+        {
+            ResetGame(param);
+           foreach(Cell cell in leTableauCell)
+           {
+                if (cell.XIndex == 1 && cell.YIndex == 48)
+                    cell.IsAlive = true;
+                if (cell.XIndex == 2 && cell.YIndex == 48)
+                    cell.IsAlive = true;
+                if (cell.XIndex == 3 && cell.YIndex == 48)
+                    cell.IsAlive = true;
+                if (cell.XIndex == 3 && cell.YIndex == 47)
+                    cell.IsAlive = true;
+                if (cell.XIndex == 2 && cell.YIndex == 46)
+                    cell.IsAlive = true;
+
+                if (cell.XIndex == 48 && cell.YIndex == 1)
+                    cell.IsAlive = true;
+                if (cell.XIndex == 48 && cell.YIndex == 2)
+                    cell.IsAlive = true;
+                if (cell.XIndex == 48 && cell.YIndex == 3)
+                    cell.IsAlive = true;
+                if (cell.XIndex == 47 && cell.YIndex == 3)
+                    cell.IsAlive = true;
+                if (cell.XIndex == 46 && cell.YIndex == 2)
+                    cell.IsAlive = true;
+
+            }
 
 
+
+        }
+
+        #endregion
+
+        #region Nomre d'itération
+        private int _nbIteration;
+
+        public int NombreIte
+        {
+            get { return _nbIteration; }
+            set { _nbIteration = value; NotifyPropertyChanged(); }
+        }
+        #endregion
+
+        #region Itération Infinie
+        private bool _iterationInfinie;
+
+        public bool IteInfinie
+        {
+            get { return _iterationInfinie; }
+            set { _iterationInfinie = value; NotifyPropertyChanged(); }
+        }
+
+
+
+
+
+        #endregion
 
     }
 }
