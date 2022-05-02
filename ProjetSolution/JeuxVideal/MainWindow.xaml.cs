@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,7 +29,7 @@ namespace JeuxVideal
             this.DataContext = new LifeGameViewModel(50);
         }
 
-        private void test(object sender, MouseEventArgs e)
+        private void OnMouseStayClick(object sender, MouseEventArgs e)
         {
             if(e.LeftButton == MouseButtonState.Pressed)
             {
@@ -36,6 +37,11 @@ namespace JeuxVideal
                 t.IsChecked = true;
             }
 
+        }
+        private void VerifyNumber(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

@@ -49,7 +49,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="Black" BorderThickness="1" >
-                        <ToggleButton Background="Red" Width="10" Height="10" IsChecked="{Binding IsAlive, Mode=TwoWay}" MouseEnter="test">
+                        <ToggleButton Background="Red" Width="10" Height="10" IsChecked="{Binding IsAlive, Mode=TwoWay}" MouseEnter="OnMouseStayClick">
                            
                         </ToggleButton>
                     </Border>
@@ -100,7 +100,7 @@
                 <Grid Grid.Row="0">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Label  >Nombre d'itération</Label>
-                        <TextBox Text="{Binding NombreIte, Mode=TwoWay}" Width="50" VerticalAlignment="Center"></TextBox>
+                        <TextBox PreviewTextInput="VerifyNumber" Text="{Binding NombreIte, Mode=TwoWay}" Width="50" VerticalAlignment="Center"></TextBox>
                     </StackPanel>
                 </Grid>
                 <Grid Grid.Row="1">
