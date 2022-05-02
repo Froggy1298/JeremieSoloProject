@@ -101,6 +101,10 @@ namespace JeuxVideal.ViewModel
                 else
                     cel.IsAlive = false;
             }
+            /* Fonction plus petit
+             foreach (Cell cel in leTableauCell)
+                cel.IsAlive = rand.Next(10) % 2 == 0;
+            */
         }
         #endregion
 
