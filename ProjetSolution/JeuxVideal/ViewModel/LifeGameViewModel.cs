@@ -81,6 +81,8 @@ namespace JeuxVideal.ViewModel
                     c.IsAlive = c.IsAliveNext;
                 }
                 await Task.Delay(50);
+                if (NombreIte == 0 && !IteInfinie)
+                    PauseGame(default);
                 
             }
         }
