@@ -37,7 +37,7 @@ namespace JeuxVideal.ViewModel
 
         public LifeGameViewModel(int size)
         {
-            BoutonPlay = new CommandeRelais(PlayGame);
+            BoutonPlay = new CommandeRelais(PlayGame,BoutonPlayCanExecute);
             BoutonPause= new CommandeRelais(PauseGame);
             BoutonReset = new CommandeRelais(ResetGame);
             BoutonAleatoire = new CommandeRelais(AleatoireTableau);
@@ -152,6 +152,10 @@ namespace JeuxVideal.ViewModel
             _estEnPause = false;
             PlayingGame();
 
+        }
+        public bool BoutonPlayCanExecute(object sender)
+        {
+            return (NombreIte != 0 || IteInfinie);
         }
         //Pour gerer la visibilité du bouton play
         private String _visibilityPlayButton = "Visible";

@@ -32,7 +32,7 @@ namespace JeuxVideal.Model
 
         public void SauvegardeFichier()
         {
-            this.GetFilePath();
+            this.GetFilePathSave();
 
             if (_StringPath != null)
             {
@@ -45,7 +45,7 @@ namespace JeuxVideal.Model
 
 
         }
-        private void GetFilePath()
+        private void GetFilePathSave()
         {
             var windowDialog = new SaveFileDialog();
             windowDialog.Filter = "Game of Life files (*.GAY)|*.GAY|All files (*.*)|*.*";
@@ -57,9 +57,20 @@ namespace JeuxVideal.Model
                 return;
 
         }
+        private void GetFilePathLoad()
+        {
+            var windowDialog = new OpenFileDialog();
+            windowDialog.Filter = "Game of Life files (*.GAY)|*.GAY|All files (*.*)|*.*";
+            windowDialog.FilterIndex = 1;
+            windowDialog.RestoreDirectory = true;
+            if ((bool)windowDialog.ShowDialog())
+                _StringPath = windowDialog.FileName;
+            else
+                return;
+        }
         public void ChargerFicher()
         {
-            this.GetFilePath();
+            this.GetFilePathLoad();
             if(_StringPath != null)
             {
                 using (FileStream stream = File.OpenRead(_StringPath))
