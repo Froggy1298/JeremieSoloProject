@@ -33,7 +33,7 @@ Lancer le jeu en cliquant sur le bouton en haut de l'interface
 ![image](https://github.com/kwidz/JeremieSoloProject/blob/main/Image/play.png)
 
 
-## FONCTIONNALITÉ
+## FONCTIONNALITÉ/UTILISATION
 
 #### -Bouton forme
 - FORME1:
