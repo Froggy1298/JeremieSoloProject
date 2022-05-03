@@ -82,12 +82,12 @@
                             <Label>Enregistrer</Label>
                         </StackPanel>
                     </Button>
-                    <Label>Taille de la grille du jeux :</Label>
+                    <!--<Label>Taille de la grille du jeux :</Label>
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center">
                         <Label>Taille:</Label>
                         <TextBox Width="50" VerticalAlignment="Center"></TextBox>
                     </StackPanel>
-                    <Button Command="" Margin="50,0">Mettre à jour</Button>
+                    <Button Command="" Margin="50,0">Mettre à jour</Button>-->
                 </StackPanel>
             </GroupBox>
             <Grid Grid.Row="1">
