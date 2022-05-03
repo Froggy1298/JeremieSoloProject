@@ -1,3 +1,4 @@
+## JEREMIE SOLO PROJECT
 ## DESCRIPTION:
 > Ceci est un projet fait en utilisant le patron de conception MVVM avec les languages de programmation wpf et c#.
 Ce projet est plus précisément le jeu de la vie, il nous permet d'y jouer et d'enregistrer des fichiers.
@@ -11,18 +12,25 @@ https://github.com/kwidz/JeremieSoloProject.git
 - ÉTAPE 2:
 Ensuite cliquer sur le bouton vert "Code" en haut à droite de la page
 Ceci va ouvrir un mini onglet
+![image](https://github.com/kwidz/JeremieSoloProject/blob/main/Image/Code.png)
 - ÉTAPE 3:
 Ensuite cliquer sur le bouton "Download ZIP"
 Ceci va télécharger le code du projet
+![image](https://github.com/kwidz/JeremieSoloProject/blob/main/Image/Zip.png)
 - ÉTAPE 4:
 Ouvrir l'explorateur de fichier et aller dans l'onglet téléchargement
+![image](https://github.com/kwidz/JeremieSoloProject/blob/main/Image/fichier.png)
+![image](https://github.com/kwidz/JeremieSoloProject/blob/main/Image/down.png)
+
 - ÉTAPE 5:
 Clique droit sur le code téléchargé et le déziper
 - ÉTAPE 6:
 Ouvrir le dossier et suivre le chemin suivant
 ProjetSolution -> JeuxVideal -> JeuxVideal.sln
+![image](https://github.com/kwidz/JeremieSoloProject/blob/main/Image/sln.png)
 - ÉTAPE 7:
 Lancer le jeu en cliquant sur le bouton en haut de l'interface
+![image](https://github.com/kwidz/JeremieSoloProject/blob/main/Image/play.png)
 
 
 ## FONCTIONNALITÉ
@@ -32,8 +40,10 @@ Lancer le jeu en cliquant sur le bouton en haut de l'interface
 Ceci fait apparaitre une multitude de ligne horizontale
 - FORME2:
 Ceci fait apparaitre une multitude de flicker
+![image](https://github.com/kwidz/JeremieSoloProject/blob/main/Image/Flicker.png)
 - FORME3:
 Ceci fait apparaitre deux planners dans les coins de la grille
+![image](https://github.com/kwidz/JeremieSoloProject/blob/main/Image/Planner.png)
 - ALÉATOIRE:
 Ceci fait une grille aléatoire
 
