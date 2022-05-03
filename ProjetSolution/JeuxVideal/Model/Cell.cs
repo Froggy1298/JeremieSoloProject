@@ -65,17 +65,17 @@ namespace JeuxVideal.Model
         {
             NbCellVoisine = 0;
 
-            NbCellVoisine =  (from voisin in this.CellsVoisine
+           /* NbCellVoisine =  (from voisin in this.CellsVoisine
                     where voisin.IsAlive
-                    select voisin).Count();
+                    select voisin).Count();*/
 
-            /*foreach(Cell Voisin in CellVoisine)
+            foreach(Cell Voisin in CellsVoisine)
             {
                 if(Voisin.IsAlive)
                 {
                     NbCellVoisine++;
                 }
-            }*/
+            }
         }
 
 

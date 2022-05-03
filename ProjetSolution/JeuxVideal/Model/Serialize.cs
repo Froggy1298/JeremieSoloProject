@@ -20,9 +20,9 @@ namespace JeuxVideal.Model
         {
             cells = gameCells;
             currentState = new bool[taille, taille]; 
-            this.GetCurrentGameState();
+            this.GetEtatGrille();
         }
-        public void GetCurrentGameState()
+        public void GetEtatGrille()
         {
             foreach (var cell in this.cells)
             {
@@ -36,7 +36,7 @@ namespace JeuxVideal.Model
 
             if (_StringPath != null)
             {
-                this.GetCurrentGameState();
+                this.GetEtatGrille();
                 using(FileStream stream = File.OpenWrite(_StringPath))
                 {
                     this.formatter.Serialize(stream, this.currentState);
@@ -89,9 +89,5 @@ namespace JeuxVideal.Model
                 c.IsAlive = currentState[c.YIndex, c.XIndex];
             }
         }
-
-
-
-
     }
 }
