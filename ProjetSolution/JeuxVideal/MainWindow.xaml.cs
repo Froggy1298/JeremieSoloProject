@@ -26,6 +26,7 @@ namespace JeuxVideal
         public MainWindow()
         {
             InitializeComponent();
+            //TODO CHANGER LA TAILLE DE LA GRILLE
             this.DataContext = new LifeGameViewModel(50);
         }
 

@@ -80,7 +80,8 @@ namespace JeuxVideal.ViewModel
                 {
                     c.IsAlive = c.IsAliveNext;
                 }
-                await Task.Delay(50);
+                //TODO CHANGER LE TEMPS D'ITÉRATION
+                await Task.Delay(500);
                 if (NombreIte == 0 && !IteInfinie)
                     PauseGame(default);
                 
